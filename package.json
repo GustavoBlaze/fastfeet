@@ -1,0 +1,25 @@
+{
+  "name": "fastfeet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:GustavoBlaze/go-stack-10-desafio-02.git",
+  "author": "Luiz Gustavo <gustavoblaze1524@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "dev:debug": "nodemon --inspect src/server.js"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "sucrase": "^3.12.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
