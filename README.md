@@ -5,14 +5,14 @@
 
 ## :rocket: Sobre o desafio
 
-A aplicação em desenvolvimento é um app em Nodejs para uma transportadora fictícia, o FastFeet. É o desafio nº 2 do bootcamp gostack 10 da Rocketseat.
+A aplicação em desenvolvimento é um app em Nodejs para uma transportadora fictícia, o FastFeet.
 
 ### **Um pouco sobre as ferramentas**
 
 - Express
 - Sucrase + Nodemon;
 - ESLint + Prettier + EditorConfig;
-- Sequelize (Utilize PostgreSQL ou MySQL);
+- Sequelize;
 
 ### 1. **Funcionalidades**
 
