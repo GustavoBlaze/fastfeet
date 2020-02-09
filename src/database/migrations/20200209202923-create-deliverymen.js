@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'files', key: 'id' },
         onUpdate: 'CASCADE',
-        onDELETE: 'SET NULL',
+        onDelete: 'SET NULL',
         allowNull: true,
       },
       email: {
