@@ -3,7 +3,7 @@
 </h1>
 
 
-## :rocket: Sobre o desafio
+## :rocket: Sobre a aplicação
 
 A aplicação em desenvolvimento é um app em Nodejs para uma transportadora fictícia, o FastFeet.
 
