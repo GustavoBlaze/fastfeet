@@ -1,10 +1,10 @@
 import * as Yup from 'yup';
-import DeliveryMan from '../models/DeliveryMan';
+import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 
-class DeliveryManController {
+class DeliverymanController {
   async index(req, res) {
-    const deliverymen = await DeliveryMan.findAll({
+    const deliverymen = await Deliveryman.findAll({
       attributes: ['id', 'name', 'email'],
       include: [
         {
@@ -30,17 +30,17 @@ class DeliveryManController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const deliveryManExists = await DeliveryMan.findOne({
+    const DeliverymanExists = await Deliveryman.findOne({
       where: { email: req.body.email },
     });
 
-    if (deliveryManExists) {
+    if (DeliverymanExists) {
       return res
         .status(400)
         .json({ error: 'A deliveryman with this email already exists' });
     }
 
-    const { id, name, email } = await DeliveryMan.create(req.body);
+    const { id, name, email } = await Deliveryman.create(req.body);
 
     return res.json({ id, name, email });
   }
@@ -56,7 +56,7 @@ class DeliveryManController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const deliveryman = await DeliveryMan.findByPk(req.params.id);
+    const deliveryman = await Deliveryman.findByPk(req.params.id);
 
     if (!deliveryman) {
       return res.status(400).json({ error: 'Deliveryman not exists' });
@@ -68,7 +68,7 @@ class DeliveryManController {
   }
 
   async delete(req, res) {
-    const deliveryman = await DeliveryMan.findByPk(req.params.id);
+    const deliveryman = await Deliveryman.findByPk(req.params.id);
 
     if (!deliveryman) {
       return res.status(400).json({ error: 'Deliveryman not exists' });
@@ -80,4 +80,4 @@ class DeliveryManController {
   }
 }
 
-export default new DeliveryManController();
+export default new DeliverymanController();
