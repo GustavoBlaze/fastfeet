@@ -18,11 +18,6 @@ routes.post('/sessions', SessionController.store);
 
 routes.get('/deliveryman/:id/deliveries', TakeOutController.index);
 
-routes.get(
-  '/deliveryman/:deliveryman_id/delivery/:id',
-  TakeOutController.index
-);
-
 routes.put(
   '/deliveryman/:deliveryman_id/delivery/:id',
   TakeOutController.update
