@@ -1,4 +1,7 @@
 import * as Yup from 'yup';
+import { parseISO } from 'date-fns';
+import CheckDate from '../helpers/CheckDate';
+
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
@@ -6,7 +9,6 @@ import Deliveryman from '../models/Deliveryman';
 class DeliveryController {
   async index(req, res) {
     const deliveries = await Delivery.findAll();
-
     return res.json(deliveries);
   }
 
@@ -48,6 +50,8 @@ class DeliveryController {
       recipient_id: Yup.number(),
       deliveryman_id: Yup.number(),
       product: Yup.string(),
+      start_date: Yup.date(),
+      end_date: Yup.date(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -59,27 +63,53 @@ class DeliveryController {
       return res.status(400).json({ error: 'Delivery does not exists' });
     }
 
+    const { recipient_id, deliveryman_id } = req.body;
+
     // check if recipient exists
-    if (
-      req.body.recipient_id &&
-      !(await Recipient.findByPk(req.body.recipient_id))
-    ) {
+    if (recipient_id && !(await Recipient.findByPk(recipient_id))) {
       return res.status(400).json({ error: 'Recipient does not exists' });
     }
 
     // check if deliveryman exissts
-    if (
-      req.body.deliveryman_id &&
-      !(await Deliveryman.findByPk(req.body.deliveryman_id))
-    ) {
+    if (deliveryman_id && !(await Deliveryman.findByPk(deliveryman_id))) {
       return res.status(400).json({ error: 'Deliveryman does not exists' });
     }
 
-    const { id, recipient_id, deliveryman_id, product } = await delivery.update(
+    const startDate = req.body.start_date
+      ? parseISO(req.body.start_date)
+      : null;
+
+    const endDate = req.body.end_date ? parseISO(req.body.end_date) : null;
+
+    const checkDate = CheckDate(startDate, endDate);
+    if (checkDate.error) {
+      return res.status(400).json(checkDate);
+    }
+
+    const { id, product, start_date, end_date } = await delivery.update(
       req.body
     );
 
-    return res.json({ id, recipient_id, deliveryman_id, product });
+    return res.json({
+      id,
+      recipient_id,
+      deliveryman_id,
+      product,
+      start_date,
+      end_date,
+    });
+  }
+
+  async delete(req, res) {
+    const delivery = await Delivery.findByPk(req.params.id);
+
+    if (!delivery) {
+      return res.status(400).json({ error: 'Can not find this delivery' });
+    }
+
+    await delivery.destroy();
+
+    return res.status(200).json();
   }
 }
 
