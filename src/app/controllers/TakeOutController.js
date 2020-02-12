@@ -1,9 +1,57 @@
-import { isBefore, isAfter, setSeconds, setMinutes, setHours } from 'date-fns';
+import * as Yup from 'yup';
+import { parseISO } from 'date-fns';
 import Delivery from '../models/Delivery';
+import Recipient from '../models/Recipient';
+import CheckDate from '../helpers/CheckDate';
 
 class TakeOutController {
+  async index(req, res) {
+    const deliveries = await Delivery.findAll({
+      where: {
+        deliveryman_id: req.params.id,
+        canceled_at: null,
+        signature_id: null,
+      },
+      attributes: ['id', 'product', 'start_date', 'end_date'],
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'id',
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'zip_code',
+          ],
+        },
+      ],
+    });
+
+    return res.status(200).json(deliveries);
+  }
+
   async update(req, res) {
-    const delivery = await Delivery.findByPk(req.params.id);
+    const schema = Yup.object().shape({
+      start_date: Yup.date().required(),
+    });
+
+    if (!(await schema.isValid(req.body)))
+      return res.status(400).json({ error: 'Validation fails' });
+
+    const { deliveryman_id, id } = req.params;
+
+    const delivery = await Delivery.findOne({
+      where: {
+        deliveryman_id,
+        id,
+        canceled_at: null,
+        signature_id: null,
+      },
+    });
 
     // check if delivery exists
     if (!delivery) {
@@ -12,36 +60,38 @@ class TakeOutController {
         .json({ error: "There's no delivery with this id" });
     }
 
-    // check if delivery has already been taken out
-    if (delivery.start_date) {
+    // check if start_date is okay
+    const start_date = parseISO(req.body.start_date);
+    const { end_date } = delivery;
+
+    const checkDate = CheckDate(start_date, end_date);
+    if (checkDate.error) {
+      return res.status(400).json(checkDate);
+    }
+
+    const takenOutDeliveries = await Delivery.count({
+      where: {
+        deliveryman_id,
+        id,
+      },
+    });
+
+    if (takenOutDeliveries >= 5) {
       return res
         .status(401)
-        .json({ error: 'This delivery has already been taken out' });
+        .json({ error: 'You can take just 5 deliveries per day' });
     }
 
-    const start_date = new Date();
+    const { product, recipient_id } = await delivery.update({ start_date });
 
-    const startInterval = setSeconds(setMinutes(setHours(start_date, 8), 0), 0);
-    const endInterval = setSeconds(setMinutes(setHours(start_date, 18), 0), 0);
-
-    // check if the taken out request is between 8 and 18 hours
-    if (
-      isBefore(start_date, startInterval) ||
-      isAfter(start_date, endInterval)
-    ) {
-      return res.status(401).json({
-        error: 'You can only take out a delivery between 08:00 and 18:00 hours',
-      });
-    }
-
-    const {
+    return res.json({
       id,
       product,
       deliveryman_id,
       recipient_id,
-    } = await delivery.update({ start_date });
-
-    return res.json({ id, product, deliveryman_id, recipient_id, start_date });
+      start_date,
+      end_date,
+    });
   }
 }
 
