@@ -26,12 +26,6 @@ class DeliveredController {
         .json({ error: 'This delivery must been taken out before.' });
     }
 
-    if (delivery.end_date) {
-      return res
-        .status(400)
-        .json({ error: 'This delivery has already been delivered' });
-    }
-
     const { signature_id } = req.body;
     const signature = await File.findByPk(signature_id);
 
