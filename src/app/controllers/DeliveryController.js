@@ -1,7 +1,4 @@
 import * as Yup from 'yup';
-import { parseISO } from 'date-fns';
-import CheckDate from '../helpers/CheckDate';
-
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
@@ -73,17 +70,6 @@ class DeliveryController {
     // check if deliveryman exissts
     if (deliveryman_id && !(await Deliveryman.findByPk(deliveryman_id))) {
       return res.status(400).json({ error: 'Deliveryman does not exists' });
-    }
-
-    const startDate = req.body.start_date
-      ? parseISO(req.body.start_date)
-      : null;
-
-    const endDate = req.body.end_date ? parseISO(req.body.end_date) : null;
-
-    const checkDate = CheckDate(startDate, endDate);
-    if (checkDate.error) {
-      return res.status(400).json(checkDate);
     }
 
     const { id, product, start_date, end_date } = await delivery.update(
