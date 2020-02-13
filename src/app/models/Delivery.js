@@ -9,7 +9,7 @@ class Delivery extends Model {
           allowNull: false,
         },
         canceled_at: {
-          type: Sequelize.STRING,
+          type: Sequelize.DATE,
           allowNull: true,
         },
         start_date: {
@@ -37,7 +37,7 @@ class Delivery extends Model {
     });
     this.belongsTo(models.Deliveryman, {
       foreignKey: 'deliveryman_id',
-      as: 'deliveryMan',
+      as: 'deliveryman',
     });
     this.belongsTo(models.File, {
       foreignKey: 'signature_id',
