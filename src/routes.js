@@ -10,6 +10,7 @@ import DeliveryController from './app/controllers/DeliveryController';
 import TakeOutController from './app/controllers/TakeOutController';
 import CompleteController from './app/controllers/CompleteController';
 import DeliveryStatusController from './app/controllers/DeliveryStatusController';
+import ProblemController from './app/controllers/ProblemController';
 
 const routes = new Router();
 
@@ -29,6 +30,9 @@ routes.put(
   CompleteController.update
 );
 
+routes.post('/delivery/:delivery_id/problems', ProblemController.store);
+routes.get('/delivery/:delivery_id/problems', ProblemController.show);
+
 routes.use(authMiddleware);
 
 routes.post('/recipients', RecipientController.store);
@@ -45,5 +49,8 @@ routes.get('/delivery', DeliveryController.index);
 routes.post('/delivery', DeliveryController.store);
 routes.put('/delivery/:id', DeliveryController.update);
 routes.delete('/delivery/:id', DeliveryController.delete);
+
+routes.get('/problems', ProblemController.index);
+routes.delete('/problem/:id/cancel-delivery', ProblemController.delete);
 
 export default routes;
