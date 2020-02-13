@@ -2,39 +2,9 @@ import * as Yup from 'yup';
 import { parseISO, startOfDay, endOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 import Delivery from '../models/Delivery';
-import Recipient from '../models/Recipient';
 import { checkIndividualDate } from '../helpers/CheckDate';
 
 class TakeOutController {
-  async index(req, res) {
-    const deliveries = await Delivery.findAll({
-      where: {
-        deliveryman_id: req.params.id,
-        canceled_at: null,
-        signature_id: null,
-      },
-      attributes: ['id', 'product', 'start_date', 'end_date'],
-      include: [
-        {
-          model: Recipient,
-          as: 'recipient',
-          attributes: [
-            'id',
-            'name',
-            'street',
-            'number',
-            'complement',
-            'state',
-            'city',
-            'zip_code',
-          ],
-        },
-      ],
-    });
-
-    return res.status(200).json(deliveries);
-  }
-
   async update(req, res) {
     const schema = Yup.object().shape({
       start_date: Yup.date().required(),
