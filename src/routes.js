@@ -9,6 +9,7 @@ import DeliverymanController from './app/controllers/DeliverymanController';
 import DeliveryController from './app/controllers/DeliveryController';
 import TakeOutController from './app/controllers/TakeOutController';
 import CompleteController from './app/controllers/CompleteController';
+import DeliveryStatusController from './app/controllers/DeliveryStatusController';
 
 const routes = new Router();
 
@@ -16,7 +17,7 @@ const upload = multer(multerConfig);
 
 routes.post('/sessions', SessionController.store);
 
-routes.get('/deliveryman/:id/deliveries', TakeOutController.index);
+routes.get('/deliveryman/:id/deliveries', DeliveryStatusController.index);
 
 routes.put(
   '/deliveryman/:deliveryman_id/delivery/:id',
