@@ -1,11 +1,31 @@
 import { isBefore, isAfter, setSeconds, setMinutes, setHours } from 'date-fns';
 
+export function checkIndividualDate(date) {
+  const initHour = date
+    ? setSeconds(setMinutes(setHours(date, 8), 0), 0)
+    : null;
+
+  const terminateHour = date
+    ? setSeconds(setMinutes(setHours(date, 18), 0), 0)
+    : null;
+
+  if (isBefore(date, new Date())) {
+    return { error: 'Past dates not allowed' };
+  }
+
+  if (!isAfter(date, initHour) || !isBefore(date, terminateHour)) {
+    return { error: 'The date must be between 8:00 and 18:00' };
+  }
+
+  return { error: null };
+}
+
 /*
   This code below could be written with a lot of lines less
   but it works perfectly, so let's keep it for a while
 */
 
-export default function CheckDate(start_date, end_date) {
+export function CheckDate(start_date, end_date) {
   const startDayInitHour = start_date
     ? setSeconds(setMinutes(setHours(start_date, 8), 0), 0)
     : null;
