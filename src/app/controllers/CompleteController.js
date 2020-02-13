@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import Delivery from '../models/Delivery';
 import File from '../models/File';
 
-class DeliveredController {
+class CompleteController {
   async update(req, res) {
     const schema = Yup.object().shape({
       signature_id: Yup.number().required(),
@@ -12,7 +12,12 @@ class DeliveredController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const delivery = await Delivery.findByPk(req.params.id);
+    const delivery = await Delivery.findOne({
+      where: {
+        id: req.params.delivery_id,
+        deliveryman_id: req.params.deliveryman_id,
+      },
+    });
 
     if (!delivery) {
       return res
@@ -55,4 +60,4 @@ class DeliveredController {
   }
 }
 
-export default new DeliveredController();
+export default new CompleteController();

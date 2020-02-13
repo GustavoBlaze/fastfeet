@@ -8,7 +8,7 @@ import FileController from './app/controllers/FileController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import DeliveryController from './app/controllers/DeliveryController';
 import TakeOutController from './app/controllers/TakeOutController';
-import DeliveredController from './app/controllers/DeliveredController';
+import CompleteController from './app/controllers/CompleteController';
 
 const routes = new Router();
 
@@ -21,6 +21,11 @@ routes.get('/deliveryman/:id/deliveries', TakeOutController.index);
 routes.put(
   '/deliveryman/:deliveryman_id/delivery/:id',
   TakeOutController.update
+);
+
+routes.put(
+  '/deliveryman/:deliveryman_id/complete/:delivery_id',
+  CompleteController.update
 );
 
 routes.use(authMiddleware);
