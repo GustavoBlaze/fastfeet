@@ -1,8 +1,9 @@
 import * as Yup from 'yup';
-import { parseISO } from 'date-fns';
+import { parseISO, startOfDay, endOfDay } from 'date-fns';
+import { Op } from 'sequelize';
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
-import CheckDate from '../helpers/CheckDate';
+import { checkIndividualDate } from '../helpers/CheckDate';
 
 class TakeOutController {
   async index(req, res) {
@@ -62,9 +63,8 @@ class TakeOutController {
 
     // check if start_date is okay
     const start_date = parseISO(req.body.start_date);
-    const { end_date } = delivery;
 
-    const checkDate = CheckDate(start_date, end_date);
+    const checkDate = checkIndividualDate(start_date);
     if (checkDate.error) {
       return res.status(400).json(checkDate);
     }
@@ -72,7 +72,9 @@ class TakeOutController {
     const takenOutDeliveries = await Delivery.count({
       where: {
         deliveryman_id,
-        id,
+        start_date: {
+          [Op.between]: [startOfDay(start_date), endOfDay(start_date)],
+        },
       },
     });
 
@@ -82,7 +84,9 @@ class TakeOutController {
         .json({ error: 'You can take just 5 deliveries per day' });
     }
 
-    const { product, recipient_id } = await delivery.update({ start_date });
+    const { product, recipient_id, end_date } = await delivery.update({
+      start_date,
+    });
 
     return res.json({
       id,
