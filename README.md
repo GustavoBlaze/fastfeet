@@ -45,7 +45,7 @@ Toda vez que uma encomenda é cadastrado para um entregador, o mesmo recebe um a
 - <a target="_blank" href="https://www.npmjs.com/package/youch" alt="youch">Youch</a>
 - <a target="_blank" href="https://www.npmjs.com/package/Yup" alt="Yup">Yup</a>
 
-### :camera: **Registros de funcionamento da aplicação**
+### :camera: **Registro de funcionamento**
 
 <h1 align="center">
   <img alt="Insomnia" title="Insomnia" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/demo/api.png" />
