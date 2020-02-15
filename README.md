@@ -2,7 +2,7 @@
   <img alt="Fastfeet" title="Fastfeet" src="https://raw.githubusercontent.com/Rocketseat/bootcamp-gostack-desafio-02/master/.github/logo.png" width="300px" />
 </h1>
 
-## :memo: Sobre a aplicação
+### :memo: Sobre a aplicação
 
 Esta é uma API REST construída para uma transportadora fictícia, A FastFeet. Toda a API é escrita em NodeJs usando MVC, banco de dados PostgreSQL e integrado com o Sentry. Continue lendo para saber mais sobre as ferramentas utilizadas, funcionalidades e etc.
 
