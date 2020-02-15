@@ -3,6 +3,8 @@ import Delivery from '../models/Delivery';
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 import Recipient from '../models/Recipient';
+import Queue from '../../lib/Queue';
+import CancellationMail from '../jobs/CancellationMail';
 
 class ProblemController {
   async index(req, res) {
@@ -126,7 +128,12 @@ class ProblemController {
     if (!problem)
       return res.status(400).json({ error: "Delivery's problem not found" });
 
-    const delivery = await Delivery.findByPk(problem.delivery_id);
+    const delivery = await Delivery.findByPk(problem.delivery_id, {
+      include: [
+        { model: Deliveryman, as: 'deliveryman' },
+        { model: Recipient, as: 'recipient' },
+      ],
+    });
 
     if (!delivery) {
       return res.status(500).json({
@@ -134,8 +141,15 @@ class ProblemController {
       });
     }
 
-    await delivery.update({
+    const { canceled_at } = await delivery.update({
       canceled_at: new Date(),
+    });
+
+    delivery.canceled_at = canceled_at;
+
+    await Queue.add(CancellationMail.key, {
+      delivery,
+      problem,
     });
 
     return res.json();

@@ -3,6 +3,8 @@ import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
+import NewDeliveryMail from '../jobs/NewDeliveryMail';
+import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async index(req, res) {
@@ -72,6 +74,12 @@ class DeliveryController {
       recipient_id,
       deliveryman_id,
       product,
+    });
+
+    await Queue.add(NewDeliveryMail.key, {
+      deliveryman,
+      product,
+      recipient,
     });
 
     return res.json({ id, recipient_id, deliveryman_id, product });
