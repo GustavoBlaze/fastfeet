@@ -4,7 +4,7 @@
 
 ### :memo: Sobre a aplicação
 
-Esta é uma API REST construída para uma transportadora fictícia, A FastFeet. Toda a API é escrita em NodeJs usando MVC, banco de dados PostgreSQL e integrado com o Sentry. Continue lendo para saber mais sobre as ferramentas utilizadas, funcionalidades e etc.
+Esta é uma API REST construída para uma transportadora fictícia, A FastFeet. Toda a API é escrita em NodeJs usando MVC, banco de dados PostgreSQL e integrado com o Sentry para monitoramento de erros em produção. Continue lendo para saber mais sobre as ferramentas utilizadas, funcionalidades e etc.
 
 ### :bookmark_tabs: **Funcionalidades de administrador**
 
