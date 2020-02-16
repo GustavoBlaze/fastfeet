@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Fastfeet" title="Fastfeet" src="https://raw.githubusercontent.com/Rocketseat/bootcamp-gostack-desafio-02/master/.github/logo.png" width="300px" />
+  <img alt="Fastfeet" title="Fastfeet" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/imgs/logo.png" width="300px" />
 </h1>
 
 ### :memo: Sobre a aplicação
@@ -51,13 +51,13 @@ As rotas utilizadas no insomnia estão todas disponiveis no arquivo <a href="htt
 ### :camera: **Registro de funcionamento**
 
 <h1 align="center">
-  <img alt="Insomnia" title="Insomnia" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/demo/api.png" />
+  <img alt="Insomnia" title="Insomnia" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/imgs/api.png" />
 </h1>
 
 <h1 align="center">
-  <img alt="Mailtrap" title="Mailtrap" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/demo/mail.png" />
+  <img alt="Mailtrap" title="Mailtrap" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/imgs/mail.png" />
 </h1>
 
 <h1 align="center">
-  <img alt="Sentry" title="Sentry" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/demo/sentry.png" />
+  <img alt="Sentry" title="Sentry" src="https://raw.githubusercontent.com/GustavoBlaze/fastfeet/master/imgs/sentry.png" />
 </h1>
