@@ -24,7 +24,6 @@ export default createGlobalStyle`
 
   a, a:visited {
     text-decoration: none;
-    color: blue;
   }
 
   ul {
