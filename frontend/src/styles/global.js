@@ -21,9 +21,12 @@ export default createGlobalStyle`
   body, input, button {
     font: 14px 'Roboto', sans-serif;
   }
-  a {
+
+  a, a:visited {
     text-decoration: none;
+    color: blue;
   }
+
   ul {
     list-style: none;
   }
