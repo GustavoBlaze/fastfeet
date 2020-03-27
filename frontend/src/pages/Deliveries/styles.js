@@ -40,14 +40,16 @@ export const Container = styled.div`
   table {
     width: 100%;
     border-spacing: 0;
+    border-collapse: separate;
+    border-spacing: 0px 21px;
 
     thead th {
       color: #444444;
       font-size: 16px;
       font-weight: bold;
       text-align: left;
-      padding-bottom: 12px;
       padding: 20px;
+      padding-bottom: 0px;
 
       &:last-child {
         text-align: center;
