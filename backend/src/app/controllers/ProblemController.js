@@ -14,7 +14,13 @@ class ProblemController {
         {
           model: Delivery,
           as: 'delivery',
-          attributes: ['id', 'product', 'start_date', 'end_date'],
+          attributes: [
+            'id',
+            'product',
+            'start_date',
+            'end_date',
+            'canceled_at',
+          ],
           include: [
             {
               model: Recipient,
