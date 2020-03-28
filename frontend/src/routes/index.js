@@ -11,11 +11,31 @@ import Problems from '~/pages/Problems';
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={SignIn} />
-      <Route path="/deliveries" component={Deliveries} isPrivate />
-      <Route path="/deliverymen" component={Deliverymen} isPrivate />
-      <Route path="/recipients" component={Recipients} isPrivate />
-      <Route path="/problems" component={Problems} isPrivate />
+      <Route path="/" exact component={SignIn} locationName="" />
+      <Route
+        path="/deliveries"
+        component={Deliveries}
+        isPrivate
+        locationName="deliveries"
+      />
+      <Route
+        path="/deliverymen"
+        component={Deliverymen}
+        isPrivate
+        locationName="deliverymen"
+      />
+      <Route
+        path="/recipients"
+        component={Recipients}
+        isPrivate
+        locationName="recipients"
+      />
+      <Route
+        path="/problems"
+        component={Problems}
+        isPrivate
+        locationName="problems"
+      />
     </Switch>
   );
 }

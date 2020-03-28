@@ -1,20 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 import logo from '~/assets/logo.png';
 
-export default function Header() {
+export default function Header({ locationName = undefined }) {
   return (
-    <Container>
+    <Container locationName={locationName}>
       <Link to="/deliveries">
         <img src={logo} alt="FastFeet" />
       </Link>
 
-      <Link to="/deliveries">Encomendas</Link>
-      <Link to="/deliverymen">Entregadores</Link>
-      <Link to="/recipients">Destinatários</Link>
-      <Link to="/problems">Problemas</Link>
+      <Link data-name="deliveries" to="/deliveries">
+        Encomendas
+      </Link>
+      <Link data-name="deliverymen" to="/deliverymen">
+        Entregadores
+      </Link>
+      <Link data-name="recipients" to="/recipients">
+        Destinatários
+      </Link>
+      <Link data-name="problems" to="/problems">
+        Problemas
+      </Link>
 
       <div>
         <strong>Admin FastFeet</strong>
@@ -23,3 +32,7 @@ export default function Header() {
     </Container>
   );
 }
+
+Header.propTypes = {
+  locationName: PropTypes.string,
+};

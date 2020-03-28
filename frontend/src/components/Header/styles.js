@@ -31,7 +31,7 @@ export const Container = styled.div`
     transition: color 300ms;
     text-transform: uppercase;
 
-    &:hover {
+    &:hover, &[data-name=${(props) => props.locationName}] {
       color: #444444;
     }
 
