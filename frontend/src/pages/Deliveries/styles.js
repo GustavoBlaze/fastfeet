@@ -43,6 +43,13 @@ export const Container = styled.div`
     border-collapse: separate;
     border-spacing: 0px 21px;
 
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
     thead th {
       color: #444444;
       font-size: 16px;
@@ -62,7 +69,7 @@ export const Container = styled.div`
         border-radius: 4px;
 
         td {
-          padding: 12px;
+          padding: 12px 20px;
           color: #666666;
           font-size: 16px;
           height: 35px;
@@ -76,6 +83,13 @@ export const Container = styled.div`
   }
 `;
 
+export const DeliverymanField = styled.td`
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  height: auto !important;
+`;
+
 export const LetterAvatar = styled.span`
   background: ${(props) => props.color};
   color: ${(props) => darken(0.3, props.color)};
@@ -86,6 +100,15 @@ export const LetterAvatar = styled.span`
   border-radius: 50%;
   display: inline-block;
   margin-right: 5px;
+`;
+
+export const Avatar = styled.img`
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-block;
 `;
 
 export const DeliveryStatus = styled.span`

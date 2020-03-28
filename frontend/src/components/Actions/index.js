@@ -16,11 +16,13 @@ export default function Actions({ children }) {
       <button type="button" onClick={handleToggle}>
         <MdMoreHoriz size={24} />
       </button>
-      <ActionList visible={visible}>{children}</ActionList>
+      <ActionList visible={visible} onClick={handleToggle}>
+        {children}
+      </ActionList>
     </Container>
   );
 }
 
 Actions.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };

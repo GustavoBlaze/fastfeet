@@ -4,7 +4,7 @@ import { darken } from 'polished';
 export const Container = styled.div`
   position: relative;
 
-  button {
+  > button {
     border: 0;
     background: none;
 
@@ -32,6 +32,7 @@ export const ActionList = styled.div`
   box-shadow: 0px 0px 2px #00000026;
   display: ${(props) => (props.visible ? 'block' : 'none')};
   padding: 20px 10px;
+  z-index: 2;
 
   &::before {
     content: '▲';
@@ -45,18 +46,16 @@ export const ActionList = styled.div`
     color: #fff;
   }
 
-  a,
-  a:visited {
-    color: #999999;
-  }
-
-  a {
+  button {
     display: flex;
     flex-direction: row;
     font-size: 16px;
     align-items: center;
     padding: 6px 0;
     text-decoration: none;
+    border: 0;
+    background: none;
+    width: 100%;
 
     svg {
       margin-right: 8px;
@@ -66,7 +65,7 @@ export const ActionList = styled.div`
       text-decoration: underline;
     }
 
-    & + a {
+    & + button {
       border-top: 1px solid #e6e6e6;
     }
   }

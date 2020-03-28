@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Form as Unform, Input as UnInput } from '@rocketseat/unform';
 
-export const Container = styled.div`
+export const Form = styled(Unform)`
   background: #fff;
   border: 1px solid #dddddd;
   border-radius: 4px;
@@ -28,3 +29,5 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const Input = styled(UnInput)``;
