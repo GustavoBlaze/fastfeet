@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { parseISO, startOfDay, endOfDay } from 'date-fns';
+import { startOfDay, endOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 import Delivery from '../models/Delivery';
 import { checkIndividualDate } from '../helpers/CheckDate';
