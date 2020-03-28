@@ -79,13 +79,13 @@ export default function LookDelivery({ delivery, closeCallback }) {
             <>
               <hr />
               <strong>Problemas ocorridos</strong>
-              {problems.map((problem) => (
-                <>
+              {problems.map((problem, i) => (
+                <div key={String(i)}>
                   <p>{problem.description}</p>
                   <span>
                     {format(parseISO(problem.createdAt), 'dd/MM/yyyy')}
                   </span>
-                </>
+                </div>
               ))}
             </>
           )}
@@ -104,6 +104,6 @@ export default function LookDelivery({ delivery, closeCallback }) {
 }
 
 LookDelivery.propTypes = {
-  delivery: PropTypes.objectOf().isRequired,
+  delivery: PropTypes.object.isRequired,
   closeCallback: PropTypes.func.isRequired,
 };

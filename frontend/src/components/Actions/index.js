@@ -24,6 +24,8 @@ export default function Actions({ children, w = undefined }) {
 }
 
 Actions.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
-  w: PropTypes.number.isRequired,
+  children: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+  ).isRequired,
+  w: PropTypes.number,
 };

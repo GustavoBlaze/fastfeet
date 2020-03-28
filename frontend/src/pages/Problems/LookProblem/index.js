@@ -74,6 +74,6 @@ export default function LookProblem({ problem, closeCallback }) {
 }
 
 LookProblem.propTypes = {
-  problem: PropTypes.objectOf().isRequired,
+  problem: PropTypes.object.isRequired,
   closeCallback: PropTypes.func.isRequired,
 };
