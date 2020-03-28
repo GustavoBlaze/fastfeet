@@ -80,10 +80,12 @@ export default function LookDelivery({ delivery, closeCallback }) {
               <hr />
               <strong>Problemas ocorridos</strong>
               {problems.map((problem) => (
-                <p>{`${problem.description} - ${format(
-                  parseISO(problem.createdAt),
-                  'dd/MM/yyyy'
-                )}`}</p>
+                <>
+                  <p>{problem.description}</p>
+                  <span>
+                    {format(parseISO(problem.createdAt), 'dd/MM/yyyy')}
+                  </span>
+                </>
               ))}
             </>
           )}

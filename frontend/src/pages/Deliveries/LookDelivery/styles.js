@@ -57,13 +57,11 @@ export const Container = styled.div`
       color: #444444;
       font-size: 16px;
       margin: 5px 0;
-
-      span {
-        font-weight: bold;
-        color: #666666;
-      }
     }
-
+    span {
+      font-weight: bold;
+      color: #666666;
+    }
     img {
       display: block;
       max-width: 100%;
