@@ -12,9 +12,9 @@ export default function Header() {
       </Link>
 
       <Link to="/deliveries">Encomendas</Link>
-      <Link to="/deliveries">Entregadores</Link>
-      <Link to="/deliveries">Destinatários</Link>
-      <Link to="/deliveries">Problemas</Link>
+      <Link to="/deliverymen">Entregadores</Link>
+      <Link to="/recipients">Destinatários</Link>
+      <Link to="/problems">Problemas</Link>
 
       <div>
         <strong>Admin FastFeet</strong>
