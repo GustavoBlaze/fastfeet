@@ -6,12 +6,12 @@ import { checkIndividualDate } from '../helpers/CheckDate';
 
 class TakeOutController {
   async update(req, res) {
-    const schema = Yup.object().shape({
-      start_date: Yup.date().required(),
-    });
+    // const schema = Yup.object().shape({
+    //   start_date: Yup.date().required(),
+    // });
 
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Validation fails' });
+    // if (!(await schema.isValid(req.body)))
+    //   return res.status(400).json({ error: 'Validation fails' });
 
     const { deliveryman_id, id } = req.params;
 
@@ -32,7 +32,7 @@ class TakeOutController {
     }
 
     // check if start_date is okay
-    const start_date = parseISO(req.body.start_date);
+    const start_date = new Date(); /* parseISO(req.body.start_date); */
 
     const checkDate = checkIndividualDate(start_date);
     if (checkDate.error) {
