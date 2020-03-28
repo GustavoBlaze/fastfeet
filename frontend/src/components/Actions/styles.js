@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
@@ -33,6 +33,13 @@ export const ActionList = styled.div`
   display: ${(props) => (props.visible ? 'block' : 'none')};
   padding: 20px 10px;
   z-index: 2;
+
+  ${(props) =>
+    props.w &&
+    css`
+      width: ${props.w}px;
+      left: calc(50% - ${props.w / 2}px);
+    `}
 
   &::before {
     content: '▲';
