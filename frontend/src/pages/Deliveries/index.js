@@ -12,70 +12,56 @@ import {
 } from './styles';
 
 import { PageTitle } from '~/styles/PageTittle';
-import { letterAvatar, deliveryStatus } from '~/styles/colors';
+import { deliveryStatus } from '~/styles/colors';
 
 import SearchInput from '~/components/SearchInput';
 import Actions from '~/components/Actions';
+import Table from '~/components/Table';
 import LookDelivery from './LookDelivery';
 
 import api from '~/services/api';
+
+import { createLetterAvatar } from '~/util/letterAvatar';
 
 export default function Deliveries() {
   const [deliveries, setDeliveries] = useState([]);
   const [looking, setLooking] = useState(null);
 
-  const createLetterAvatar = useCallback((name, index) => {
-    const split = name.split(' ');
-    const letters =
-      split.length > 1
-        ? split[0].charAt(0) + split[1].charAt(0)
-        : split[0].charAt(0) + split[0].charAt(1);
+  const parseDeliveries = useCallback((data) => {
+    return data.map((delivery, index) => {
+      delivery.idText =
+        delivery.id > 9 ? `#${delivery.id}` : `#0${delivery.id}`;
 
-    const color = letterAvatar[index % letterAvatar.length];
-    return {
-      color,
-      letters: letters.toUpperCase(),
-    };
+      delivery.deliveryman.letterAvatar = createLetterAvatar(
+        delivery.deliveryman.name,
+        index
+      );
+
+      if (delivery.canceled_at)
+        delivery.status = {
+          color: deliveryStatus.canceled,
+          text: 'CANCELADA',
+        };
+      else if (delivery.end_date)
+        delivery.status = {
+          color: deliveryStatus.delivered,
+          text: 'ENTREGUE',
+        };
+      else if (delivery.start_date)
+        delivery.status = {
+          color: deliveryStatus.takeout,
+          text: 'RETIRADA',
+        };
+      else {
+        delivery.status = {
+          color: deliveryStatus.pending,
+          text: 'PENDENTE',
+        };
+      }
+
+      return delivery;
+    });
   }, []);
-
-  const parseDeliveries = useCallback(
-    (data) => {
-      return data.map((delivery, index) => {
-        delivery.idText =
-          delivery.id > 9 ? `#${delivery.id}` : `#0${delivery.id}`;
-
-        delivery.deliveryman.letterAvatar = createLetterAvatar(
-          delivery.deliveryman.name,
-          index
-        );
-
-        if (delivery.canceled_at)
-          delivery.status = {
-            color: deliveryStatus.canceled,
-            text: 'CANCELADA',
-          };
-        else if (delivery.end_date)
-          delivery.status = {
-            color: deliveryStatus.delivered,
-            text: 'ENTREGUE',
-          };
-        else if (delivery.start_date)
-          delivery.status = {
-            color: deliveryStatus.takeout,
-            text: 'RETIRADA',
-          };
-        else {
-          delivery.status = {
-            color: deliveryStatus.pending,
-            text: 'PENDENTE',
-          };
-        }
-
-        return delivery;
-      });
-    },
-    [createLetterAvatar]
-  );
 
   const handleLook = useCallback((delivery) => {
     setLooking(delivery);
@@ -132,7 +118,7 @@ export default function Deliveries() {
           Cadastrar
         </Link>
       </div>
-      <table>
+      <Table>
         <thead>
           <tr>
             <th>ID</th>
@@ -189,7 +175,7 @@ export default function Deliveries() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
 
       {looking && (
         <LookDelivery
