@@ -1,5 +1,13 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { Form as Unform, Input as UnInput } from '@rocketseat/unform';
+
+const rotate = keyframes`
+  from{
+    transform: rotate(0deg);
+  }to{
+    transform: rotate(360deg);
+  }
+`;
 
 export const Form = styled(Unform)`
   background: #fff;
@@ -14,13 +22,19 @@ export const Form = styled(Unform)`
   svg {
     width: 22px;
     height: 22px;
+
+    ${(props) =>
+      props.searching &&
+      css`
+      animation ${rotate} 1s linear infinite;
+    `}
   }
 
   input {
     font-size: 14px;
     color: #999999;
     border: none;
-    padding-top: 3px;
+    padding-top: 2px;
     padding-left: 5px;
 
     &::placeholder {
