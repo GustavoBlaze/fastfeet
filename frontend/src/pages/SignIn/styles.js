@@ -10,6 +10,20 @@ const rotate = keyframes`
   }
 `;
 
+const appear = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50%{
+    transform: scale(1.05);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
 export const Form = styled(UnForm)`
   width: 100%;
   max-width: 360px;
@@ -19,6 +33,7 @@ export const Form = styled(UnForm)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: ${appear} 350ms linear backwards;
 
   img {
     height: 44px;
@@ -71,12 +86,15 @@ export const Form = styled(UnForm)`
     color: #fff;
     font-weight: bold;
     transition: background 0.2s;
+    height: 42px;
 
     &:hover {
       background: ${darken(0.2, '#7d40e7')};
     }
 
     svg {
+      width: 20px;
+      height: 20px;
       animation: ${rotate} 2s linear infinite;
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { FaSpinner } from 'react-icons/fa';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 import { Form, Input } from './styles';
@@ -34,7 +34,7 @@ export default function SignIn() {
       <Input type="password" name="password" placeholder="*************" />
 
       <button type="submit">
-        {loading ? <FaSpinner /> : 'Entrar no sistema'}
+        {loading ? <AiOutlineLoading /> : 'Entrar no sistema'}
       </button>
     </Form>
   );
