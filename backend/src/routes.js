@@ -35,8 +35,10 @@ routes.get('/delivery/:delivery_id/problems', ProblemController.show);
 
 routes.use(authMiddleware);
 
+routes.get('/recipients', RecipientController.index);
 routes.post('/recipients', RecipientController.store);
 routes.put('/recipients/:id', RecipientController.update);
+routes.delete('/recipients/:id', RecipientController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
