@@ -5,6 +5,7 @@ export const Container = styled.table`
   border-spacing: 0;
   border-collapse: separate;
   border-spacing: 0px 21px;
+  max-width: 100%;
 
   img {
     width: 36px;
@@ -36,7 +37,6 @@ export const Container = styled.table`
         color: #666666;
         font-size: 16px;
         height: 35px;
-
         &:last-child {
           text-align: center;
         }
