@@ -12,6 +12,7 @@ import Actions from '~/components/Actions';
 import Table from '~/components/Table';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { createLetterAvatar } from '~/util/letterAvatar';
 
@@ -36,7 +37,7 @@ export default function Deliverymen() {
   };
 
   const handleEdit = useCallback((deliveryman) => {
-    console.tron.log(deliveryman);
+    history.push(`/deliverymen/edit/${deliveryman.id}`);
   }, []);
 
   const handleDelete = useCallback(
@@ -75,7 +76,7 @@ export default function Deliverymen() {
           placeholder="Buscar por entregador"
           callback={handleSearch}
         />
-        <Link to="/">
+        <Link to="/deliverymen/new">
           <MdAdd color="#FFFFFF" size={26} />
           Cadastrar
         </Link>

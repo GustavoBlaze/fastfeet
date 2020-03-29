@@ -22,6 +22,9 @@ export const Loading = styled.div`
 `;
 
 export const Form = styled(UnForm)`
+  max-width: 900px;
+  margin: 0 auto;
+
   header {
     margin-bottom: 34px;
     display: flex;
@@ -71,36 +74,12 @@ export const Card = styled.div`
   background: #fff;
   border-radius: 4px;
   padding: 30px 22px;
-
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
 
-  div {
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-
-  div:nth-child(1) {
-    width: 100%;
-    min-width: 300px;
-  }
-
-  div:nth-child(2) {
-    width: 60%;
-    min-width: 300px;
-  }
-
-  div:nth-child(3),
-  div:nth-child(4) {
-    width: 20%;
-    min-width: 150px;
-  }
-
-  div:nth-child(5),
-  div:nth-child(6),
-  div:nth-child(7) {
-    width: calc(100% / 3);
-    min-width: 150px;
+  div:nth-child(2),
+  div:nth-child(3) {
+    align-self: stretch;
   }
 `;
