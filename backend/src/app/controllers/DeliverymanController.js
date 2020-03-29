@@ -28,6 +28,26 @@ class DeliverymanController {
     return res.json(deliverymen);
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+
+    const deliveryman = await Deliveryman.findByPk(id, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'name', 'path', 'url'],
+        },
+      ],
+    });
+
+    if (!id) {
+      return res.status(400).json({ error: 'Deliveryman not found' });
+    }
+
+    return res.json(deliveryman);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
