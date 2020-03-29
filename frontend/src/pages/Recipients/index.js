@@ -12,6 +12,7 @@ import Actions from '~/components/Actions';
 import Table from '~/components/Table';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { createLetterAvatar } from '~/util/letterAvatar';
 
@@ -39,7 +40,7 @@ export default function Recipients() {
   };
 
   const handleEdit = useCallback((item) => {
-    console.tron.log(item);
+    history.push(`/recipients/edit/${item.id}`);
   }, []);
 
   const handleDelete = useCallback(

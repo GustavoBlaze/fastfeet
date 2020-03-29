@@ -32,6 +32,12 @@ export default function Routes() {
         locationName="recipients"
       />
       <Route
+        path="/recipients/edit/:id"
+        component={NewRecipient}
+        isPrivate
+        locationName="recipients"
+      />
+      <Route
         path="/recipients"
         component={Recipients}
         isPrivate

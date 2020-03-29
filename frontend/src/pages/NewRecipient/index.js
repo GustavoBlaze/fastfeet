@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
-
-import { Form, Button, Card } from './styles';
+import { AiOutlineLoading } from 'react-icons/ai';
+import { Loading, Form, Button, Card } from './styles';
 import { PageTitle } from '~/styles/PageTittle';
 
 import Input from '~/components/Input';
@@ -29,23 +30,67 @@ const schema = Yup.object().shape({
     .required('Este campo é obrigatório'),
 });
 
-export default function NewRecipient() {
+export default function NewRecipient({ match }) {
+  const id = match.params.id ? decodeURIComponent(match.params.id) : null;
+  const [recipient, setRecipient] = useState(null);
+
+  useEffect(() => {
+    async function getRecipient() {
+      try {
+        const { data } = await api.get(`recipients/${id}`);
+        setRecipient(data);
+      } catch (err) {
+        toast.error('Não foi possível localizar este destinatário');
+        history.push('/recipients');
+      }
+    }
+
+    if (id) {
+      getRecipient();
+    }
+  }, [id]);
+
   function handleGoBack() {
     history.push('/recipients');
   }
 
   async function handleSubmit(data) {
-    try {
-      await api.post('recipients', data);
-      toast.success('Destinatário cadastrado com sucesso!');
-      history.push('/recipients');
-    } catch (err) {
-      toast.error('Não foi possível realizar o cadastro, verifique seus dados');
+    if (id) {
+      try {
+        await api.put(`recipients/${id}`, data);
+        toast.success('Destinatário alterado com sucesso!');
+        history.push('/recipients');
+      } catch (err) {
+        toast.error(
+          'Não foi possível realizar a alteração, verifique seus dados'
+        );
+      }
+    } else {
+      try {
+        await api.post('recipients', data);
+        toast.success('Destinatário cadastrado com sucesso!');
+        history.push('/recipients');
+      } catch (err) {
+        toast.error(
+          'Não foi possível realizar o cadastro, verifique seus dados'
+        );
+      }
     }
   }
 
+  if (id && !recipient) {
+    return (
+      <Loading>
+        <AiOutlineLoading />
+      </Loading>
+    );
+  }
   return (
-    <Form schema={schema} onSubmit={handleSubmit}>
+    <Form
+      schema={schema}
+      initialData={recipient || undefined}
+      onSubmit={handleSubmit}
+    >
       <header>
         <PageTitle>Cadastro de destinatário</PageTitle>
         <Button type="button" onClick={handleGoBack}>
@@ -72,7 +117,11 @@ export default function NewRecipient() {
         />
         <Input title="Cidade" name="city" placeholder="Ex: Winterfell" />
         <Input title="Estado" name="state" placeholder="Ex: São Paulo" />
-        <InputMask name="zip_code" mask="99999-999">
+        <InputMask
+          name="zip_code"
+          mask="99999-999"
+          value={recipient?.zip_code || undefined}
+        >
           {() => (
             <Input title="CEP" name="zip_code" placeholder="Ex: 09960-580" />
           )}
@@ -81,3 +130,7 @@ export default function NewRecipient() {
     </Form>
   );
 }
+
+NewRecipient.propTypes = {
+  match: PropTypes.object.isRequired,
+};
