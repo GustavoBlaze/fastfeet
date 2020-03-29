@@ -40,10 +40,7 @@ class RecipientController {
       street: Yup.string().required(),
       number: Yup.number().required(),
       complement: Yup.string(),
-      state: Yup.string()
-        .required()
-        .min(2)
-        .max(2),
+      state: Yup.string().required(),
       city: Yup.string().required(),
       zip_code: Yup.string().required(),
     });

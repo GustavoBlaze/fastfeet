@@ -78,7 +78,7 @@ export default function Recipients() {
           placeholder="Buscar por destinatário"
           callback={handleSearch}
         />
-        <Link to="/">
+        <Link to="/recipients/new">
           <MdAdd color="#FFFFFF" size={26} />
           Cadastrar
         </Link>

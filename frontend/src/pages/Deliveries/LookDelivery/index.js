@@ -45,10 +45,10 @@ export default function LookDelivery({ delivery, closeCallback }) {
         <Scroll>
           <strong>Informações da encomenda</strong>
           <p>{product}</p>
-          <p>{`${recipient.street}, ${recipient.number}`}</p>
-          <p>{`${recipient.city} - ${recipient.state}`}</p>
-          <p>{recipient.zip_code}</p>
-          {recipient.complement && <p>recipient.complement</p>}
+          <p>{`${recipient?.street}, ${recipient?.number}`}</p>
+          <p>{`${recipient?.city} - ${recipient?.state}`}</p>
+          <p>{recipient?.zip_code}</p>
+          {recipient?.complement && <p>recipient?.complement</p>}
 
           {(start_date || end_date || canceled_at) && (
             <>
@@ -57,19 +57,19 @@ export default function LookDelivery({ delivery, closeCallback }) {
             </>
           )}
 
-          {start_date && (
+          {formattedStart && (
             <p>
               <span>Retirada:</span> {formattedStart}
             </p>
           )}
 
-          {end_date && (
+          {formattedEnd && (
             <p>
               <span>Entrega:</span> {formattedEnd}
             </p>
           )}
 
-          {canceled_at && (
+          {formattedCanceled && (
             <p>
               <span>Cancelada:</span> {formattedCanceled}
             </p>

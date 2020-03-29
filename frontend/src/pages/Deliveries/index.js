@@ -134,20 +134,24 @@ export default function Deliveries() {
           {deliveries.map(({ deliveryman, recipient, status, ...delivery }) => (
             <tr key={String(delivery.id)}>
               <td>{delivery.idText}</td>
-              <td>{recipient.name}</td>
+              <td>{recipient?.name}</td>
               <DeliverymanField>
-                {deliveryman.avatar ? (
-                  <Avatar src={deliveryman.avatar.url} />
-                ) : (
-                  <LetterAvatar color={deliveryman.letterAvatar.color}>
-                    {deliveryman.letterAvatar.letters}
-                  </LetterAvatar>
-                )}
+                {deliveryman && (
+                  <>
+                    {deliveryman.avatar ? (
+                      <Avatar src={deliveryman.avatar.url} />
+                    ) : (
+                      <LetterAvatar color={deliveryman?.letterAvatar.color}>
+                        {deliveryman?.letterAvatar.letters}
+                      </LetterAvatar>
+                    )}
 
-                {deliveryman.name}
+                    {deliveryman.name}
+                  </>
+                )}
               </DeliverymanField>
-              <td>{recipient.city}</td>
-              <td>{recipient.state}</td>
+              <td>{recipient?.city}</td>
+              <td>{recipient?.state}</td>
               <td>
                 <DeliveryStatus color={status.color}>
                   {status.text}
