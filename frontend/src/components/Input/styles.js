@@ -25,4 +25,8 @@ export const Input = styled(UnInput)`
   color: #999999;
   font-size: 16px;
   width: 100%;
+
+  &::placeholder {
+    color: rgba(153, 153, 153, 0.7);
+  }
 `;
