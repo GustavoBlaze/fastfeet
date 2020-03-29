@@ -71,6 +71,16 @@ class RecipientController {
     });
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+
+    const recipient = await Recipient.findByPk(id);
+
+    if (!recipient) return res.status(400).json({});
+
+    return res.json(recipient);
+  }
+
   async update(req, res) {
     const recipientId = req.params.id;
 
@@ -79,10 +89,7 @@ class RecipientController {
       street: Yup.string().required(),
       number: Yup.number().required(),
       complement: Yup.string(),
-      state: Yup.string()
-        .required()
-        .min(2)
-        .max(2),
+      state: Yup.string().required(),
       city: Yup.string().required(),
       zip_code: Yup.string().required(),
     });
