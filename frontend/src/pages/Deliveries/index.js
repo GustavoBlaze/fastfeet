@@ -20,6 +20,7 @@ import Table from '~/components/Table';
 import LookDelivery from './LookDelivery';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { createLetterAvatar } from '~/util/letterAvatar';
 
@@ -68,7 +69,7 @@ export default function Deliveries() {
   }, []);
 
   const handleEdit = useCallback((delivery) => {
-    console.tron.log(delivery);
+    history.push(`/deliveries/edit/${delivery.id}`);
   }, []);
 
   const handleDelete = useCallback(
@@ -113,7 +114,7 @@ export default function Deliveries() {
           placeholder="Buscar por encomendas"
           callback={handleSearch}
         />
-        <Link to="/">
+        <Link to="/deliveries/new">
           <MdAdd color="#FFFFFF" size={26} />
           Cadastrar
         </Link>
