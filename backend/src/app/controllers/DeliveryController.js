@@ -61,6 +61,56 @@ class DeliveryController {
     return res.json(deliveries);
   }
 
+  async show(req, res) {
+    const delivery = await Delivery.findByPk(req.params.id, {
+      attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'id',
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'zip_code',
+          ],
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'signature',
+          attributes: ['name', 'path', 'url'],
+        },
+        {
+          model: Problem,
+          as: 'problems',
+          attributes: ['id', 'description', 'createdAt'],
+        },
+      ],
+    });
+
+    if (!delivery) {
+      return res.status(400).json({ error: 'Delivery not found' });
+    }
+
+    return res.json(delivery);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       recipient_id: Yup.number().required(),
@@ -130,18 +180,9 @@ class DeliveryController {
       return res.status(400).json({ error: 'Deliveryman does not exists' });
     }
 
-    const { id, product, start_date, end_date } = await delivery.update(
-      req.body
-    );
+    const deliveryUpdated = await delivery.update(req.body);
 
-    return res.json({
-      id,
-      recipient_id,
-      deliveryman_id,
-      product,
-      start_date,
-      end_date,
-    });
+    return res.json(deliveryUpdated);
   }
 
   async delete(req, res) {
