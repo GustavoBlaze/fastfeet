@@ -32,6 +32,9 @@ class DeliverymanController {
     const { id } = req.params;
 
     const deliveryman = await Deliveryman.findByPk(id, {
+      attributes: {
+        exclude: ['avatar_id'],
+      },
       include: [
         {
           model: File,
@@ -41,7 +44,7 @@ class DeliverymanController {
       ],
     });
 
-    if (!id) {
+    if (!deliveryman) {
       return res.status(400).json({ error: 'Deliveryman not found' });
     }
 
