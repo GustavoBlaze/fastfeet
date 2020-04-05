@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { startOfDay, endOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 import Delivery from '../models/Delivery';
