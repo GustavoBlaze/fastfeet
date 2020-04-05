@@ -11,7 +11,7 @@ class DeliveryStatusController {
         canceled_at: null,
         signature_id: completed ? { [Op.ne]: null } : null,
       },
-      attributes: ['id', 'product', 'start_date', 'end_date'],
+      attributes: ['id', 'product', 'start_date', 'end_date', 'createdAt'],
       include: [
         {
           model: Recipient,
