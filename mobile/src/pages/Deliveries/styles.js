@@ -5,12 +5,14 @@ export const Container = styled.SafeAreaView`
   flex: 1;
   background: #fff;
   padding: 20px;
+  padding-bottom: 0;
   flex-direction: column;
 `;
 
 export const Header = styled.View`
   align-self: stretch;
   flex-direction: row;
+  margin-bottom: 20px;
 `;
 
 export const Avatar = styled(CustomAvatar)``;

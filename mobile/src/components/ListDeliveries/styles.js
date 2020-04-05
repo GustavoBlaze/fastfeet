@@ -1,0 +1,52 @@
+import styled from 'styled-components/native';
+import { ActivityIndicator } from 'react-native';
+
+export const Container = styled.View`
+  flex: 1;
+  flex-direction: column;
+`;
+
+export const Header = styled.View`
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const HeaderTitle = styled.Text`
+  color: #444444;
+  font-size: 22px;
+  font-weight: bold;
+`;
+
+export const FilterContainer = styled.View`
+  flex-direction: row;
+`;
+
+export const FilterButton = styled.TouchableOpacity`
+  margin-left: 12px;
+`;
+
+export const FilterText = styled.Text`
+  color: ${(props) => (props.selected ? '#7D40E7' : '#999999')};
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: underline;
+`;
+
+export const Loading = styled(ActivityIndicator).attrs({
+  size: 'large',
+  color: '#7D40E7',
+})`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  margin-top: 20px;
+  margin-left: -3px;
+  margin-right: -3px;
+`;

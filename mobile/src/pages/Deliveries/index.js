@@ -14,6 +14,8 @@ import {
   LogoutContainer,
 } from './styles';
 
+import ListDeliveries from '~/components/ListDeliveries';
+
 import { signOut } from '~/store/modules/auth/actions';
 
 export default function Deliveries() {
@@ -47,6 +49,8 @@ export default function Deliveries() {
             </TouchableOpacity>
           </LogoutContainer>
         </Header>
+
+        <ListDeliveries />
       </Container>
     </>
   );
