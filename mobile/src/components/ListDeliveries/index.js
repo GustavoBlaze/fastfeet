@@ -40,7 +40,7 @@ export default function ListDeliveries() {
     return items.map((delivery) => ({
       ...delivery,
       formattedId: delivery.id < 10 ? `0${delivery.id}` : String(delivery.id),
-      formattedDate: format(parseISO(delivery.createdAt), 'MM/dd/yyyy'),
+      formattedDate: format(parseISO(delivery.createdAt), 'dd/MM/yyyy'),
     }));
   }
 
