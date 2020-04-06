@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { format, parseISO } from 'date-fns';
 import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -26,7 +27,7 @@ import api from '~/services/api';
 
 import DeliveryCard from '~/components/DeliveryCard';
 
-export default function ListDeliveries() {
+export default function ListDeliveries({ navigation }) {
   const [filter, setFilter] = useState('pending');
   const [deliveries, setDeliveries] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -47,6 +48,7 @@ export default function ListDeliveries() {
   const loadDeliveries = useCallback(async () => {
     setDeliveries([]);
     setLoading(true);
+    setPage(1);
     try {
       let url = `deliveryman/${id}/deliveries`;
       if (filter === 'delivered') url += '?completed=true';
@@ -142,7 +144,9 @@ export default function ListDeliveries() {
               <List
                 data={deliveries}
                 keyExtractor={(delivery) => String(delivery.id)}
-                renderItem={({ item }) => <DeliveryCard delivery={item} />}
+                renderItem={({ item }) => (
+                  <DeliveryCard navigation={navigation} delivery={item} />
+                )}
                 refreshing={refreshing}
                 onRefresh={handleRefresh}
                 onEndReachedThreshold={0.5}
@@ -168,3 +172,8 @@ export default function ListDeliveries() {
     </Container>
   );
 }
+
+ListDeliveries.propTypes = {
+  navigation: PropTypes.instanceOf(Object).isRequired,
+  isFocused: PropTypes.bool.isRequired,
+};

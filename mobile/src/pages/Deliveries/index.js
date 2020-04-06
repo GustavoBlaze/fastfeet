@@ -3,6 +3,7 @@ import { StatusBar, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { withNavigationFocus } from 'react-navigation';
 
 import {
   Container,
@@ -18,7 +19,7 @@ import ListDeliveries from '~/components/ListDeliveries';
 
 import { signOut } from '~/store/modules/auth/actions';
 
-export default function Deliveries() {
+function Deliveries({ navigation, isFocused }) {
   const dispatch = useDispatch();
   const profile = useSelector((store) => store.deliveryman.profile);
   const name =
@@ -50,21 +51,18 @@ export default function Deliveries() {
           </LogoutContainer>
         </Header>
 
-        <ListDeliveries />
+        <ListDeliveries navigation={navigation} />
       </Container>
     </>
   );
 }
 
-const TabBarIcon = ({ tintColor }) => (
-  <Icon name="reorder" size={20} color={tintColor} />
-);
-
-TabBarIcon.propTypes = {
-  tintColor: PropTypes.string.isRequired,
-};
-
 Deliveries.navigationOptions = {
-  tabBarLabel: 'Entregas',
-  tabBarIcon: TabBarIcon,
+  headerShown: false,
 };
+
+Deliveries.propTypes = {
+  navigation: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default Deliveries;

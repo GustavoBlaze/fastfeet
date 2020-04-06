@@ -17,7 +17,7 @@ import {
 
 import Timeline from './Timeline';
 
-export default function DeliveryCard({ delivery }) {
+export default function DeliveryCard({ navigation, delivery }) {
   return (
     <Container
       style={{
@@ -44,7 +44,7 @@ export default function DeliveryCard({ delivery }) {
         </FooterItem>
 
         <FooterItem>
-          <Button>
+          <Button onPress={() => navigation.navigate('Detail', { delivery })}>
             <Small />
             <ButtonText>Ver detalhes</ButtonText>
           </Button>
@@ -63,5 +63,8 @@ DeliveryCard.propTypes = {
     recipient: PropTypes.shape({
       city: PropTypes.string.isRequired,
     }).isRequired,
+  }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
