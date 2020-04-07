@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import Recipient from '../models/Recipient';
 import Delivery from '../models/Delivery';
+import Problem from '../models/Problem';
 
 class DeliveryStatusController {
   async index(req, res) {
@@ -30,6 +31,11 @@ class DeliveryStatusController {
             'city',
             'zip_code',
           ],
+        },
+        {
+          model: Problem,
+          as: 'problems',
+          attributes: ['description', 'createdAt'],
         },
       ],
     });
