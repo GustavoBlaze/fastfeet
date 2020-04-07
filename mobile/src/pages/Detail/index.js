@@ -126,7 +126,11 @@ export default function Detail({ navigation }) {
           </TakeOutButton>
         ) : (
           <Actions style={{ elevation: 3 }}>
-            <ActionButton>
+            <ActionButton
+              onPress={() =>
+                navigation.navigate('NewProblem', { deliveryId: id })
+              }
+            >
               <Icon name="highlight-off" color="#E74040" size={25} />
               <ActionButtonText>Informar</ActionButtonText>
               <ActionButtonText>Problema</ActionButtonText>
@@ -159,5 +163,6 @@ Detail.propTypes = {
   navigation: PropTypes.shape({
     getParam: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
