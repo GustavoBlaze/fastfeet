@@ -122,7 +122,7 @@ export default function Detail({ navigation }) {
 
         {!start_date ? (
           <TakeOutButton loading={loading} onPress={handleTakeout}>
-            Retirar
+            Retirar encomenda
           </TakeOutButton>
         ) : (
           <Actions style={{ elevation: 3 }}>
