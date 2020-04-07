@@ -3,7 +3,6 @@ import { StatusBar, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { withNavigationFocus } from 'react-navigation';
 
 import {
   Container,
