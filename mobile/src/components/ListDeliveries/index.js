@@ -175,5 +175,4 @@ export default function ListDeliveries({ navigation }) {
 
 ListDeliveries.propTypes = {
   navigation: PropTypes.instanceOf(Object).isRequired,
-  isFocused: PropTypes.bool.isRequired,
 };

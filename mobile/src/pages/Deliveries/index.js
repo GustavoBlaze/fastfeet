@@ -19,7 +19,7 @@ import ListDeliveries from '~/components/ListDeliveries';
 
 import { signOut } from '~/store/modules/auth/actions';
 
-function Deliveries({ navigation, isFocused }) {
+function Deliveries({ navigation }) {
   const dispatch = useDispatch();
   const profile = useSelector((store) => store.deliveryman.profile);
   const name =
