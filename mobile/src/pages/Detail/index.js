@@ -151,7 +151,9 @@ export default function Detail({ navigation }) {
               <ActionButtonText>Problemas</ActionButtonText>
             </ActionButton>
             <VerticalSeparator />
-            <ActionButton>
+            <ActionButton
+              onPress={() => navigation.navigate('Confirm', { deliveryId: id })}
+            >
               <Icon name="alarm-on" color="#7D40E7" size={25} />
 
               <ActionButtonText>Confirmar</ActionButtonText>

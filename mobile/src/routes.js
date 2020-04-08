@@ -12,6 +12,7 @@ import Profile from '~/pages/Profile';
 import Detail from '~/pages/Detail';
 import NewProblem from '~/pages/NewProblem';
 import Problems from '~/pages/Problems';
+import Confirm from '~/pages/Confirm';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -29,6 +30,7 @@ export default (isSigned = false) =>
                   Detail,
                   NewProblem,
                   Problems,
+                  Confirm,
                 },
                 {
                   defaultNavigationOptions: ({ navigation }) => ({
