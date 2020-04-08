@@ -35,7 +35,7 @@ export default (isSigned = false) =>
                     headerTransparent: true,
                     headerTintColor: '#fff',
                     headerLeftContainerStyle: {
-                      marginLeft: 20,
+                      marginLeft: 15,
                       paddingTop: 20,
                     },
                     headerTitleStyle: {

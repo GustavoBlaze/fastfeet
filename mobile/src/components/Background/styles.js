@@ -16,5 +16,5 @@ export const Purple = styled.View`
 export const Content = styled.View`
   flex-direction: column;
   flex: 1;
-  padding: 0 30px;
+  padding: 0 20px;
 `;
