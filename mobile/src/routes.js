@@ -11,6 +11,7 @@ import Deliveries from '~/pages/Deliveries';
 import Profile from '~/pages/Profile';
 import Detail from '~/pages/Detail';
 import NewProblem from '~/pages/NewProblem';
+import Problems from '~/pages/Problems';
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -27,6 +28,7 @@ export default (isSigned = false) =>
                   Deliveries,
                   Detail,
                   NewProblem,
+                  Problems,
                 },
                 {
                   defaultNavigationOptions: ({ navigation }) => ({

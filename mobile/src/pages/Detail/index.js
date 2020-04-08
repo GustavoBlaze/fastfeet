@@ -36,6 +36,8 @@ export default function Detail({ navigation }) {
     canceled_at,
     start_date,
     end_date,
+    problems,
+    formattedId,
   } = navigation.getParam('delivery');
 
   const formattedAddress = `${recipient.street}, ${recipient.number}${
@@ -136,7 +138,11 @@ export default function Detail({ navigation }) {
               <ActionButtonText>Problema</ActionButtonText>
             </ActionButton>
             <VerticalSeparator />
-            <ActionButton>
+            <ActionButton
+              onPress={() =>
+                navigation.navigate('Problems', { formattedId, problems })
+              }
+            >
               <Icon name="info-outline" color="#E7BA40" size={25} />
               <ActionButtonText>Visualizar</ActionButtonText>
               <ActionButtonText>Problemas</ActionButtonText>
