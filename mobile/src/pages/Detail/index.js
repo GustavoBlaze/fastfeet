@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Toast from 'react-native-simple-toast';
+
 import { useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
@@ -71,6 +73,7 @@ export default function Detail({ navigation }) {
     try {
       await api.put(`/deliveryman/${deliverymanId}/delivery/${id}`);
       setLoading(false);
+      Toast.show('Encomenda retirada');
       navigationReset();
     } catch (err) {
       Alert.alert(
