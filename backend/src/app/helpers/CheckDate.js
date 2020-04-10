@@ -9,10 +9,6 @@ export function checkIndividualDate(date) {
     ? setSeconds(setMinutes(setHours(date, 18), 0), 0)
     : null;
 
-  if (isBefore(date, new Date())) {
-    return { error: 'Past dates not allowed' };
-  }
-
   if (!isAfter(date, initHour) || !isBefore(date, terminateHour)) {
     return { error: 'The date must be between 8:00 and 18:00' };
   }
