@@ -6,6 +6,7 @@ export const Container = styled.View`
   flex: 1;
   flex-direction: column;
   padding: 3px;
+  padding-bottom: 0;
 `;
 
 export const Header = styled.View`
@@ -67,8 +68,8 @@ export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
   margin-top: 10px;
-  margin-left: -3px;
-  margin-right: -3px;
+  margin-left: -5px;
+  margin-right: -5px;
 `;
 
 export const Empty = styled.View`
