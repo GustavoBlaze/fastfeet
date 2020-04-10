@@ -130,38 +130,41 @@ export default function Detail({ navigation }) {
             Retirar encomenda
           </TakeOutButton>
         ) : (
-          <Actions style={{ elevation: 3 }}>
-            <ActionButton
-              enabled
-              onPress={() =>
-                navigation.navigate('NewProblem', { deliveryId: id })
-              }
-            >
-              <Icon name="highlight-off" color="#E74040" size={25} />
-              <ActionButtonText>Informar</ActionButtonText>
-              <ActionButtonText>Problema</ActionButtonText>
-            </ActionButton>
-            <VerticalSeparator />
-            <ActionButton
-              enabled
-              onPress={() =>
-                navigation.navigate('Problems', { formattedId, problems })
-              }
-            >
-              <Icon name="info-outline" color="#E7BA40" size={25} />
-              <ActionButtonText>Visualizar</ActionButtonText>
-              <ActionButtonText>Problemas</ActionButtonText>
-            </ActionButton>
-            <VerticalSeparator />
-            <ActionButton
-              enabled={!end_date}
-              onPress={() => navigation.navigate('Confirm', { deliveryId: id })}
-            >
-              <Icon name="alarm-on" color="#7D40E7" size={25} />
-              <ActionButtonText>Confirmar</ActionButtonText>
-              <ActionButtonText>Entrega</ActionButtonText>
-            </ActionButton>
-          </Actions>
+          <>
+            {!end_date && (
+              <Actions style={{ elevation: 3 }}>
+                <ActionButton
+                  onPress={() =>
+                    navigation.navigate('NewProblem', { deliveryId: id })
+                  }
+                >
+                  <Icon name="highlight-off" color="#E74040" size={25} />
+                  <ActionButtonText>Informar</ActionButtonText>
+                  <ActionButtonText>Problema</ActionButtonText>
+                </ActionButton>
+                <VerticalSeparator />
+                <ActionButton
+                  onPress={() =>
+                    navigation.navigate('Problems', { formattedId, problems })
+                  }
+                >
+                  <Icon name="info-outline" color="#E7BA40" size={25} />
+                  <ActionButtonText>Visualizar</ActionButtonText>
+                  <ActionButtonText>Problemas</ActionButtonText>
+                </ActionButton>
+                <VerticalSeparator />
+                <ActionButton
+                  onPress={() =>
+                    navigation.navigate('Confirm', { deliveryId: id })
+                  }
+                >
+                  <Icon name="alarm-on" color="#7D40E7" size={25} />
+                  <ActionButtonText>Confirmar</ActionButtonText>
+                  <ActionButtonText>Entrega</ActionButtonText>
+                </ActionButton>
+              </Actions>
+            )}
+          </>
         )}
       </Container>
     </Background>
