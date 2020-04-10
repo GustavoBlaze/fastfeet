@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
+import Animated from 'react-native-reanimated';
 
 export const Container = styled.View`
   align-self: stretch;
@@ -17,19 +18,26 @@ export const Buttons = styled.View`
   flex-direction: row;
 `;
 
-export const Button = styled.TouchableOpacity`
-  margin-left: 12px;
+export const Line = styled(Animated.View)`
+  background-color: #7d40e7;
+  height: 2px;
+  width: 90px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
 `;
 
-export const Text = styled.Text`
-  font-size: 13px;
-  font-weight: bold;
-  color: #999999;
+export const Button = styled.TouchableOpacity`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  width: 85px;
+`;
 
-  ${(props) =>
-    props.selected &&
-    css`
-      color: #7d40e7;
-      text-decoration: underline;
-    `}
+export const Text = styled(Animated.Text)`
+  font-size: 14px;
+  font-weight: bold;
+  color: #999;
 `;
