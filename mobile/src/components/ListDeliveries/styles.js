@@ -66,7 +66,7 @@ export const LoadingMoreText = styled.Text`
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: -3px;
   margin-right: -3px;
 `;
