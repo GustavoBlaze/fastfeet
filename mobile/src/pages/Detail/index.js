@@ -132,6 +132,7 @@ export default function Detail({ navigation }) {
         ) : (
           <Actions style={{ elevation: 3 }}>
             <ActionButton
+              enabled
               onPress={() =>
                 navigation.navigate('NewProblem', { deliveryId: id })
               }
@@ -142,6 +143,7 @@ export default function Detail({ navigation }) {
             </ActionButton>
             <VerticalSeparator />
             <ActionButton
+              enabled
               onPress={() =>
                 navigation.navigate('Problems', { formattedId, problems })
               }
@@ -152,10 +154,10 @@ export default function Detail({ navigation }) {
             </ActionButton>
             <VerticalSeparator />
             <ActionButton
+              enabled={!end_date}
               onPress={() => navigation.navigate('Confirm', { deliveryId: id })}
             >
               <Icon name="alarm-on" color="#7D40E7" size={25} />
-
               <ActionButtonText>Confirmar</ActionButtonText>
               <ActionButtonText>Entrega</ActionButtonText>
             </ActionButton>

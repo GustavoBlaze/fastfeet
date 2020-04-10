@@ -71,6 +71,7 @@ export const ActionButton = styled(RectButton)`
   justify-content: center;
   align-items: center;
   padding: 15px 0;
+  opacity: ${(props) => (props.enabled ? 1 : 0.6)};
 `;
 
 export const VerticalSeparator = styled.View`
