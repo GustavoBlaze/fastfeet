@@ -6,11 +6,6 @@ import { useSelector } from 'react-redux';
 
 import {
   Container,
-  Header,
-  HeaderTitle,
-  FilterContainer,
-  FilterButton,
-  FilterText,
   List,
   Loading,
   Empty,
@@ -27,8 +22,7 @@ import api from '~/services/api';
 
 import DeliveryCard from '~/components/DeliveryCard';
 
-export default function ListDeliveries({ navigation }) {
-  const [filter, setFilter] = useState('pending');
+export default function ListDeliveries({ navigation, mode = 'pending' }) {
   const [deliveries, setDeliveries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -51,7 +45,7 @@ export default function ListDeliveries({ navigation }) {
     setPage(1);
     try {
       let url = `deliveryman/${id}/deliveries`;
-      if (filter === 'delivered') url += '?completed=true';
+      if (mode === 'delivered') url += '?completed=true';
 
       const { data } = await api.get(url);
       setDeliveries(parseDeliveries(data));
@@ -62,7 +56,7 @@ export default function ListDeliveries({ navigation }) {
       );
     }
     setLoading(false);
-  }, [id, filter]);
+  }, [id, mode]);
 
   useEffect(() => {
     loadDeliveries();
@@ -76,7 +70,7 @@ export default function ListDeliveries({ navigation }) {
 
     try {
       let url = `deliveryman/${id}/deliveries`;
-      if (filter === 'delivered') url += '?completed=true';
+      if (mode === 'delivered') url += '?completed=true';
 
       const { data } = await api.get(url);
       setDeliveries(parseDeliveries(data));
@@ -88,7 +82,7 @@ export default function ListDeliveries({ navigation }) {
     }
     setRefreshing(false);
     setHasMore(true);
-  }, [id, filter]);
+  }, [id, mode]);
 
   const loadMore = useCallback(async () => {
     if (loadingMore || !hasMore) return;
@@ -99,7 +93,7 @@ export default function ListDeliveries({ navigation }) {
       const params = { page: page + 1 };
       const url = `deliveryman/${id}/deliveries`;
 
-      if (filter === 'delivered') {
+      if (mode === 'delivered') {
         params.completed = true;
       }
 
@@ -120,21 +114,10 @@ export default function ListDeliveries({ navigation }) {
     }
 
     setLoadingMore(false);
-  }, [hasMore, loadingMore, id, filter, page, deliveries]);
+  }, [hasMore, loadingMore, id, mode, page, deliveries]);
 
   return (
     <Container>
-      <Header>
-        <HeaderTitle>Entregas</HeaderTitle>
-        <FilterContainer>
-          <FilterButton onPress={() => setFilter('pending')}>
-            <FilterText selected={filter === 'pending'}>Pendentes</FilterText>
-          </FilterButton>
-          <FilterButton onPress={() => setFilter('delivered')}>
-            <FilterText selected={filter === 'delivered'}>Entregues</FilterText>
-          </FilterButton>
-        </FilterContainer>
-      </Header>
       {loading ? (
         <Loading />
       ) : (
@@ -173,6 +156,11 @@ export default function ListDeliveries({ navigation }) {
   );
 }
 
+ListDeliveries.defaultProps = {
+  mode: 'Pending',
+};
+
 ListDeliveries.propTypes = {
   navigation: PropTypes.instanceOf(Object).isRequired,
+  mode: PropTypes.string,
 };

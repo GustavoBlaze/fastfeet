@@ -5,6 +5,7 @@ import LottieView from 'lottie-react-native';
 export const Container = styled.View`
   flex: 1;
   flex-direction: column;
+  padding: 3px;
 `;
 
 export const Header = styled.View`
