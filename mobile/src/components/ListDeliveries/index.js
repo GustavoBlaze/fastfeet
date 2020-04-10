@@ -100,7 +100,7 @@ export default function ListDeliveries({ navigation }) {
       const url = `deliveryman/${id}/deliveries`;
 
       if (filter === 'delivered') {
-        params.delivered = true;
+        params.completed = true;
       }
 
       const { data } = await api.get(url, { params });
