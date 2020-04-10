@@ -5,13 +5,6 @@ import { checkIndividualDate } from '../helpers/CheckDate';
 
 class TakeOutController {
   async update(req, res) {
-    // const schema = Yup.object().shape({
-    //   start_date: Yup.date().required(),
-    // });
-
-    // if (!(await schema.isValid(req.body)))
-    //   return res.status(400).json({ error: 'Validation fails' });
-
     const { deliveryman_id, id } = req.params;
 
     const delivery = await Delivery.findOne({
@@ -23,15 +16,13 @@ class TakeOutController {
       },
     });
 
-    // check if delivery exists
     if (!delivery) {
       return res
         .status(400)
         .json({ error: "There's no delivery with this id" });
     }
 
-    // check if start_date is okay
-    const start_date = new Date(); /* parseISO(req.body.start_date); */
+    const start_date = new Date();
 
     const checkDate = checkIndividualDate(start_date);
     if (checkDate.error) {
