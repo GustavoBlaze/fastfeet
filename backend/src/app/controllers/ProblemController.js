@@ -8,8 +8,16 @@ import CancellationMail from '../jobs/CancellationMail';
 
 class ProblemController {
   async index(req, res) {
+    const { page = 1 } = req.query;
+    const limit = 5;
+
+    const total = await Problem.count();
+
     const problems = await Problem.findAll({
       attributes: ['id', 'description'],
+      order: [['id', 'DESC']],
+      limit,
+      offset: (page - 1) * limit,
       include: [
         {
           model: Delivery,
@@ -58,7 +66,13 @@ class ProblemController {
       ],
     });
 
-    return res.json(problems);
+    return res.json({
+      limit,
+      page: Number(page),
+      pages: Math.ceil(total / limit),
+      total,
+      items: problems,
+    });
   }
 
   async store(req, res) {

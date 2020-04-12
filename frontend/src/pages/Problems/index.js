@@ -9,6 +9,7 @@ import { deliveryStatus } from '~/styles/colors';
 
 import Actions from '~/components/Actions';
 import Table from '~/components/Table';
+import Pagination from '~/components/Pagination';
 
 import LookProblem from './LookProblem';
 
@@ -17,6 +18,9 @@ import api from '~/services/api';
 export default function Problems() {
   const [problems, setProblems] = useState([]);
   const [looking, setLooking] = useState(null);
+  const [pages, setPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
   const parseProblems = useCallback((data) => {
     return data.map((item) => {
@@ -45,11 +49,27 @@ export default function Problems() {
     console.tron.log(gonnaCancel);
   }, []);
 
+  async function handlePagination(n) {
+    const params = {
+      page: n,
+    };
+
+    const response = await api.get('problems', { params });
+    const data = parseProblems(response.data.items);
+    setProblems(data);
+    setPage(response.data.page);
+    setPages(response.data.pages);
+    setTotal(response.data.total);
+  }
+
   useEffect(() => {
     async function getDeliverymen() {
       const response = await api.get('problems');
-      const data = parseProblems(response.data);
+      const data = parseProblems(response.data.items);
       setProblems(data);
+      setPage(response.data.page);
+      setPages(response.data.pages);
+      setTotal(response.data.total);
     }
 
     getDeliverymen();
@@ -103,6 +123,12 @@ export default function Problems() {
           ))}
         </tbody>
       </Table>
+      <Pagination
+        total={total}
+        page={page}
+        pages={pages}
+        callback={handlePagination}
+      />
 
       {looking && (
         <LookProblem problem={looking} closeCallback={() => setLooking(null)} />
