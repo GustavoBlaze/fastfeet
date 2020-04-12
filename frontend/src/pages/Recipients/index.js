@@ -74,7 +74,7 @@ export default function Recipients() {
       q: searchText,
     };
 
-    const response = await api.get('delivery', { params });
+    const response = await api.get('recipients', { params });
     const data = parseRecipients(response.data.items);
     setRecipients(data);
     setPage(response.data.page);

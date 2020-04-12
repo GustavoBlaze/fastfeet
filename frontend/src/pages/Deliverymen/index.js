@@ -71,7 +71,7 @@ export default function Deliverymen() {
       q: searchText,
     };
 
-    const response = await api.get('delivery', { params });
+    const response = await api.get('deliverymen', { params });
     const data = parseDeliverymen(response.data.items);
     setDeliverymen(data);
     setPage(response.data.page);
