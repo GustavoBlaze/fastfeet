@@ -4,8 +4,8 @@
 
 <h1 align="center">
   <p align="center">
-    <img src='./img/desktop.gif'>
-    <img src="./img/mobile.gif" height="325">
+    <img src='./img/desktop.gif' height="310">
+    <img src="./img/mobile.gif" height="310">
   </p>
     
 </h1>
