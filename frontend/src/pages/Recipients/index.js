@@ -10,6 +10,7 @@ import { PageTitle } from '~/styles/PageTittle';
 import SearchInput from '~/components/SearchInput';
 import Actions from '~/components/Actions';
 import Table from '~/components/Table';
+import Pagination from '~/components/Pagination';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -18,6 +19,10 @@ import { createLetterAvatar } from '~/util/letterAvatar';
 
 export default function Recipients() {
   const [recipients, setRecipients] = useState([]);
+  const [pages, setPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [searchText, setSearchText] = useState('');
 
   const parseRecipients = useCallback((data) => {
     return data.map((item, index) => {
@@ -35,8 +40,12 @@ export default function Recipients() {
 
   const handleSearch = async (search) => {
     const response = await api.get(`recipients?q=${search}`);
-    const data = parseRecipients(response.data);
+    const data = parseRecipients(response.data.items);
     setRecipients(data);
+    setSearchText(search);
+    setPage(response.data.page);
+    setPages(response.data.pages);
+    setTotal(response.data.total);
   };
 
   const handleEdit = useCallback((item) => {
@@ -59,11 +68,28 @@ export default function Recipients() {
     [recipients]
   );
 
+  async function handlePagination(n) {
+    const params = {
+      page: n,
+      q: searchText,
+    };
+
+    const response = await api.get('delivery', { params });
+    const data = parseRecipients(response.data.items);
+    setRecipients(data);
+    setPage(response.data.page);
+    setPages(response.data.pages);
+    setTotal(response.data.total);
+  }
+
   useEffect(() => {
     async function getDeliverymen() {
       const response = await api.get('recipients');
-      const data = parseRecipients(response.data);
+      const data = parseRecipients(response.data.items);
       setRecipients(data);
+      setPage(response.data.page);
+      setPages(response.data.pages);
+      setTotal(response.data.total);
     }
 
     getDeliverymen();
@@ -121,6 +147,12 @@ export default function Recipients() {
           ))}
         </tbody>
       </Table>
+      <Pagination
+        total={total}
+        page={page}
+        pages={pages}
+        callback={handlePagination}
+      />
     </Container>
   );
 }

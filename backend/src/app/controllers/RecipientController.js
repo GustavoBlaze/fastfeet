@@ -5,17 +5,23 @@ import Delivery from '../models/Delivery';
 
 class RecipientController {
   async index(req, res) {
-    const { q } = req.query;
+    const { q, page = 1 } = req.query;
     const where = {};
+    const limit = 5;
 
     if (q) {
       where.name = { [Op.iLike]: `%${q}%` };
     }
+
+    const total = await Recipient.count({ where });
     const recipients = await Recipient.findAll({
       where,
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
       },
+      order: [['id', 'DESC']],
+      limit,
+      offset: (page - 1) * limit,
       include: [
         {
           model: Delivery,
@@ -31,7 +37,13 @@ class RecipientController {
       ],
     });
 
-    return res.json(recipients);
+    return res.json({
+      limit,
+      page: Number(page),
+      pages: Math.ceil(total / limit),
+      total,
+      items: recipients,
+    });
   }
 
   async store(req, res) {
