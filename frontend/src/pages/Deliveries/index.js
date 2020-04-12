@@ -38,10 +38,12 @@ export default function Deliveries() {
       delivery.idText =
         delivery.id > 9 ? `#${delivery.id}` : `#0${delivery.id}`;
 
-      delivery.deliveryman.letterAvatar = createLetterAvatar(
-        delivery.deliveryman.name,
-        index
-      );
+      if (delivery.deliveryman) {
+        delivery.deliveryman.letterAvatar = createLetterAvatar(
+          delivery.deliveryman.name,
+          index
+        );
+      }
 
       if (delivery.canceled_at)
         delivery.status = {
