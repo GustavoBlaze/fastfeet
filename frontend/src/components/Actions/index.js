@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { MdMoreHoriz } from 'react-icons/md';
 
@@ -10,6 +10,18 @@ export default function Actions({ children, w = undefined }) {
   function handleToggle() {
     setVisible(!visible);
   }
+
+  const listener = useCallback(() => {
+    if (visible) setVisible(false);
+  }, [visible]);
+
+  useEffect(() => {
+    document.addEventListener('click', listener);
+
+    return () => {
+      document.removeEventListener('click', listener);
+    };
+  }, [listener]);
 
   return (
     <Container>
