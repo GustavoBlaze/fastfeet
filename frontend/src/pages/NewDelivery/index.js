@@ -25,12 +25,12 @@ export default function NewDelivery({ match }) {
     async function loadData() {
       try {
         const [recipientResponse, deliverymanResponse] = await Promise.all([
-          api.get('recipients'),
-          api.get('deliverymen'),
+          api.get('recipients', { params: { limit: 300 } }),
+          api.get('deliverymen', { params: { limit: 300 } }),
         ]);
 
-        setRecipients(recipientResponse.data);
-        setDeliverymen(deliverymanResponse.data);
+        setRecipients(recipientResponse.data.items);
+        setDeliverymen(deliverymanResponse.data.items);
 
         if (id) {
           const { data } = await api.get(`delivery/${id}`);
