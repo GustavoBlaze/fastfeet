@@ -17,6 +17,7 @@ import { deliveryStatus } from '~/styles/colors';
 import SearchInput from '~/components/SearchInput';
 import Actions from '~/components/Actions';
 import Table from '~/components/Table';
+import Pagination from '~/components/Pagination';
 import LookDelivery from './LookDelivery';
 
 import api from '~/services/api';
@@ -27,6 +28,10 @@ import { createLetterAvatar } from '~/util/letterAvatar';
 export default function Deliveries() {
   const [deliveries, setDeliveries] = useState([]);
   const [looking, setLooking] = useState(null);
+  const [pages, setPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [searchText, setSearchText] = useState('');
 
   const parseDeliveries = useCallback((data) => {
     return data.map((delivery, index) => {
@@ -88,17 +93,38 @@ export default function Deliveries() {
     [deliveries]
   );
 
-  const handleSearch = async (search) => {
+  async function handleSearch(search) {
     const response = await api.get(`delivery?q=${search}`);
-    const data = parseDeliveries(response.data);
+    const data = parseDeliveries(response.data.items);
     setDeliveries(data);
-  };
+    setSearchText(search);
+    setPage(response.data.page);
+    setPages(response.data.pages);
+    setTotal(response.data.total);
+  }
+
+  async function handlePagination(n) {
+    const params = {
+      page: n,
+      q: searchText,
+    };
+
+    const response = await api.get('delivery', { params });
+    const data = parseDeliveries(response.data.items);
+    setDeliveries(data);
+    setPage(response.data.page);
+    setPages(response.data.pages);
+    setTotal(response.data.total);
+  }
 
   useEffect(() => {
     async function getDeliveries() {
       const response = await api.get('delivery');
-      const data = parseDeliveries(response.data);
+      const data = parseDeliveries(response.data.items);
       setDeliveries(data);
+      setPage(response.data.page);
+      setPages(response.data.pages);
+      setTotal(response.data.total);
     }
 
     getDeliveries();
@@ -181,7 +207,12 @@ export default function Deliveries() {
           ))}
         </tbody>
       </Table>
-
+      <Pagination
+        total={total}
+        page={page}
+        pages={pages}
+        callback={handlePagination}
+      />
       {looking && (
         <LookDelivery
           delivery={looking}
