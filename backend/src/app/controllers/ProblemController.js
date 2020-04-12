@@ -8,8 +8,7 @@ import CancellationMail from '../jobs/CancellationMail';
 
 class ProblemController {
   async index(req, res) {
-    const { page = 1 } = req.query;
-    const limit = 5;
+    const { page = 1, limit = 5 } = req.query;
 
     const total = await Problem.count();
 

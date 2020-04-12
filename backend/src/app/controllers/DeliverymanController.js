@@ -6,9 +6,8 @@ import File from '../models/File';
 
 class DeliverymanController {
   async index(req, res) {
-    const { q, page = 1 } = req.query;
+    const { q, page = 1, limit = 5 } = req.query;
     const where = {};
-    const limit = 5;
 
     if (q) {
       where.name = { [Op.iLike]: `%${q}%` };
