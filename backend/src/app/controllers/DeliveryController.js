@@ -20,6 +20,7 @@ class DeliveryController {
     const deliveries = await Delivery.findAll({
       where,
       attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
+      order: [['id', 'DESC']],
       include: [
         {
           model: Recipient,
