@@ -12,6 +12,7 @@ export const Container = styled.table`
     height: 36px;
     border-radius: 50%;
     margin-right: 5px;
+    object-fit: cover;
   }
 
   thead th {
