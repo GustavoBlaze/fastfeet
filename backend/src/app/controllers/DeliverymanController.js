@@ -6,16 +6,22 @@ import File from '../models/File';
 
 class DeliverymanController {
   async index(req, res) {
-    const { q } = req.query;
+    const { q, page = 1 } = req.query;
     const where = {};
+    const limit = 5;
 
     if (q) {
       where.name = { [Op.iLike]: `%${q}%` };
     }
 
+    const total = await Deliveryman.count({ where });
+
     const deliverymen = await Deliveryman.findAll({
       where,
       attributes: ['id', 'name', 'email'],
+      limit,
+      offset: (page - 1) * limit,
+      order: [['id', 'DESC']],
       include: [
         {
           model: File,
@@ -25,7 +31,13 @@ class DeliverymanController {
       ],
     });
 
-    return res.json(deliverymen);
+    return res.json({
+      limit,
+      page: Number(page),
+      pages: Math.ceil(total / limit),
+      total,
+      items: deliverymen,
+    });
   }
 
   async show(req, res) {

@@ -10,6 +10,7 @@ import { PageTitle } from '~/styles/PageTittle';
 import SearchInput from '~/components/SearchInput';
 import Actions from '~/components/Actions';
 import Table from '~/components/Table';
+import Pagination from '~/components/Pagination';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -18,6 +19,10 @@ import { createLetterAvatar } from '~/util/letterAvatar';
 
 export default function Deliverymen() {
   const [deliverymen, setDeliverymen] = useState([]);
+  const [pages, setPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [searchText, setSearchText] = useState('');
 
   const parseDeliverymen = useCallback((data) => {
     return data.map((deliveryman, index) => {
@@ -32,8 +37,12 @@ export default function Deliverymen() {
 
   const handleSearch = async (search) => {
     const response = await api.get(`deliverymen?q=${search}`);
-    const data = parseDeliverymen(response.data);
+    const data = parseDeliverymen(response.data.items);
     setDeliverymen(data);
+    setSearchText(search);
+    setPage(response.data.page);
+    setPages(response.data.pages);
+    setTotal(response.data.total);
   };
 
   const handleEdit = useCallback((deliveryman) => {
@@ -56,11 +65,28 @@ export default function Deliverymen() {
     [deliverymen]
   );
 
+  async function handlePagination(n) {
+    const params = {
+      page: n,
+      q: searchText,
+    };
+
+    const response = await api.get('delivery', { params });
+    const data = parseDeliverymen(response.data.items);
+    setDeliverymen(data);
+    setPage(response.data.page);
+    setPages(response.data.pages);
+    setTotal(response.data.total);
+  }
+
   useEffect(() => {
     async function getDeliverymen() {
       const response = await api.get('deliverymen');
-      const data = parseDeliverymen(response.data);
+      const data = parseDeliverymen(response.data.items);
       setDeliverymen(data);
+      setPage(response.data.page);
+      setPages(response.data.pages);
+      setTotal(response.data.total);
     }
 
     getDeliverymen();
@@ -126,6 +152,12 @@ export default function Deliverymen() {
           ))}
         </tbody>
       </Table>
+      <Pagination
+        total={total}
+        page={page}
+        pages={pages}
+        callback={handlePagination}
+      />
     </Container>
   );
 }
