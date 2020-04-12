@@ -7,7 +7,7 @@
     <img src='./img/desktop.gif' height="400">
   </p>
   <p align="center">
-    <img src="./img/mobile.gif" height="400">
+    <img src="./img/mobile.gif" height="450">
   </p>
 </h1>
 
