@@ -33,8 +33,10 @@ A aplicação em **React Native** é para o entregador visulizar as entregas e t
 ### :rocket: Iniciando com o backend
 1. ``cd backend``
 2. ``yarn``
-3. ``Criar o arquivo .env com base no .env.example``;
-3. ``yarn dev``
+3. ``Criar o arquivo .env com base no .env.example``
+4. ``yarn sequelize db:migrate``
+5. ``yarn sequelize db:seed:all``
+6. ``yarn dev``
 
 ### 💻 Iniciando com o Front-end 
 1. ``cd frontend``
