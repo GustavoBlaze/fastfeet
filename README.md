@@ -1,5 +1,6 @@
 <h1 align="center">
   <p><img src='./img/logo.png' height="44"></p>
+  FastFeet
   <p>📦 Um serviço de gestão de encomendas e entregadores</p>
 </h1>
 
