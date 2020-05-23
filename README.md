@@ -1,5 +1,6 @@
 <h1 align="center">
   <p><img src='./img/logo.png' height="44"></p>
+  <p>bearded_person Um serviço de agendamento que conecta prestadores de serviços de beleza e clientes. Feito em Node.js (Back-end), ReactJS (Front-end) e React-Native (Mobile)</p>
 </h1>
 
 <h1 align="center">
