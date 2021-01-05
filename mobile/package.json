@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.7",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "date-fns": "^2.0.0-beta.5",
     "immer": "^6.0.3",
     "lottie-react-native": "^3.3.2",
