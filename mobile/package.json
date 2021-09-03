@@ -14,7 +14,7 @@
     "@react-native-community/masked-view": "^0.1.7",
     "axios": "^0.19.2",
     "date-fns": "^2.0.0-beta.5",
-    "immer": "^6.0.3",
+    "immer": "^9.0.6",
     "lottie-react-native": "^3.3.2",
     "polished": "^3.5.1",
     "prop-types": "^15.7.2",
